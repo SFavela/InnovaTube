@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react"
 import { FormEvent, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import "./register.css"
 
 function RegisterPage() {
 
@@ -52,33 +53,42 @@ function RegisterPage() {
     }
 
     return (
-        <body>
-            {error && <div className="error">{error}</div>}
-                <h1>Registro</h1>
+        <div>
+            <div className="container">
+                <header>
+                    <h1>InnovaTube</h1>
+                </header>
+                {error && <div className="error">{error}</div>}
                 <div className="form">
                     <form onSubmit={handleSubmit} className="registro">
-                        <div className="login__field">
-                            <input className="login__input" type="text" placeholder="Nombre completo" name="nombreCompleto" />
-                        </div>
-                        <div className="login__field">
-                            <input className="login__input" type="text" placeholder="Usuario" name="usuario" />
-                        </div>
-                        <div className="login__field">
-                            <input className="login__input" type="mail" placeholder="Correo Electrónico"  name="correoElectronico" />
-                        </div>
-                        <div className="login__field">
-                            <input className="login__input" type="password" placeholder="Contraseña"  name="contrasena" />
-                        </div>
-                        <div className="login__field">
-                            <input className="login__input" type="password" placeholder="Confirmar Contraseña"  name="confirmarContrasena" />
+                        <h2>Registro</h2>
+                        <div className="form-container">
+                            <div className="login__field">
+                                <input className="login__input" type="text" placeholder="Nombre completo" name="nombreCompleto" />
+                            </div>
+                            <div className="login__field">
+                                <input className="login__input" type="text" placeholder="Usuario" name="usuario" />
+                            </div>
+                            <div className="login__field">
+                                <input className="login__input" type="mail" placeholder="Correo Electrónico"  name="correoElectronico" />
+                            </div>
+                            <div className="login__field">
+                                <input className="login__input" type="password" placeholder="Contraseña"  name="contrasena" />
+                            </div>
+                            <div className="login__field">
+                                <input className="login__input" type="password" placeholder="Confirmar Contraseña"  name="confirmarContrasena" />
+                            </div>
                         </div>
                         <button className="login__submit">
                             <span className="button_text">Crear cuenta</span>
                         </button>
-                        <p className="switch-form">¿Ya tienes cuenta?<span className="login-link"><Link href={'../login'}>Inicar Sesión</Link></span></p>
-                    </form>
-                </div>
-        </body>
+                        <div className="form-section">
+                            <p>¿Ya tienes cuenta?<span className="login-link"><Link href={'../login'}>Inicar Sesión</Link></span></p>
+                        </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
     )
 }
 

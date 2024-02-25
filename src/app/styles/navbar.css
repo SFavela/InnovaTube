@@ -1,0 +1,18 @@
+.navbar{
+    width: 100%;
+    height: 127px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.5px solid #FFF;
+}
+
+.btn{
+    margin-left: 30px;
+}
+
+.tittle{
+    font-weight: 700;
+    font-size: 50px;
+    color:#FFF
+}
