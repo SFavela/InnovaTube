@@ -8,13 +8,20 @@ import Link from "next/link"
 
 function RegisterPage() {
 
-    const [error, setError] = useState();
+    const [error, setError] = useState("");
     const router = useRouter()
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
+        const contrasena = formData.get("contrasena") as string;
+        const confirmarContrasena = formData.get("confirmarContrasena") as string;
+
+        if (contrasena !== confirmarContrasena) {
+            setError("La contraseña y la confirmación de contraseña no coinciden");
+            return;
+        }
 
         try {
             const signupResponse = await axios.post("/api/auth/signup", {
@@ -61,6 +68,9 @@ function RegisterPage() {
                         </div>
                         <div className="login__field">
                             <input className="login__input" type="password" placeholder="Contraseña"  name="contrasena" />
+                        </div>
+                        <div className="login__field">
+                            <input className="login__input" type="password" placeholder="Confirmar Contraseña"  name="confirmarContrasena" />
                         </div>
                         <button className="login__submit">
                             <span className="button_text">Crear cuenta</span>
