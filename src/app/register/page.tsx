@@ -80,11 +80,13 @@ function RegisterPage() {
                             <div className="login__field">
                                 <input className="login__input" type="password" placeholder="Confirmar Contraseña"  name="confirmarContrasena" />
                             </div>
+                            <div className="login__field">
                             <ReCAPTCHA
                             sitekey="6LeIgIApAAAAAPyO-wLuXK-trJUFOVI0dyJxhm9T"
                             onChange={(value) =>{
                                 console.log('Captcha value:', value);
                             }}/>
+                            </div>
                         </div>
                         <button className="login__submit">
                             <span className="button_text">Crear cuenta</span>
