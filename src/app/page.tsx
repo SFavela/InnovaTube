@@ -1,43 +1,71 @@
 "use client"
-import Dropdown from '@/components/dropdown'
-import { useEffect, useState } from 'react'
-import { google } from 'googleapis'
-import { fetchYouTubeVideos } from './api/youtube/youtube'
 
+import Dropdown from '@/components/dropdown';
+import { getData } from './api/youtube/youtube';
+import { useState, useEffect } from 'react';
+import "./styles/homepage.css"
+
+interface Video {
+  id?: {
+    videoId?: string;
+  };
+  snippet?: {
+    title?: string;
+    thumbnails?: {
+      default?: {
+        url?: string;
+      };
+    };
+  };
+  statistics?: {
+    viewCount?: string;
+  };
+}
 
 export default function HomePage() {
-
-  const [videos, setVideos] = useState<any[]>([]);
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [favorites, setFavorites] = useState<Video[]>([]);
 
   useEffect(() => {
-    async function getVideos() {
-      const fetchedVideos = await fetchYouTubeVideos();
-      setVideos(fetchedVideos || []);
+    async function fetchVideos() {
+      try {
+        const data = await getData();
+        setVideos(data);
+      } catch (error) {
+        console.error('Error al obtener los datos de la API de YouTube:', error);
+      }
     }
-    getVideos();
+
+    fetchVideos();
   }, []);
 
+  const playVideo = (videoId: string) => {
+    window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+  };
+
+  const addToFavorites = (video: Video) => {
+    setFavorites([...favorites, video]);
+  };
+
   return (
-    <div>
-      <Dropdown/>
-      <div>
-      <h1>Videos de YouTube</h1>
-      <div>
+    <main>
+      <Dropdown />
+      <div className='video-container'>
         {videos.map((video) => (
-          <div key={video.id?.videoId}>
-            <h2>{video.snippet?.title}</h2>
-            <iframe
-              width="560"
-              height="315"
-              src={`https://www.youtube.com/embed/${video.id?.videoId}`}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+          <div key={video.id?.videoId} className="video-item">
+            <div className="video-info">
+              <img
+                src={video.snippet?.thumbnails?.default?.url}
+                alt="Thumbnail del video"
+                style={{ width: '240px', height: '135px', cursor: 'pointer' }}
+                onClick={() => playVideo(video.id?.videoId || '')}
+              />
+              <h2>{video.snippet?.title?.substring(0, 10)}</h2>
+              <p>Reproducciones: {video.statistics?.viewCount}</p>
+            </div>
           </div>
         ))}
       </div>
-    </div>
-    </div>
-  )
+    </main>
+  );
 }
