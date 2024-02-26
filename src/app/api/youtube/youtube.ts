@@ -1,15 +1,26 @@
-import {google, youtube_v3} from 'googleapis';
+import { google } from 'googleapis';
 
-export default async function getPopularVideos(){
-    const apiKey = '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'
-    const youtube = google.youtube({version: 'v3', auth: apiKey});
+const youtube = google.youtube({
+  version: 'v3',
+  auth: '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', // Reemplaza con tu clave de API
+});
 
-    const response = await youtube.videos.list({
-        part:['snippet'],
-        chart: 'mostPopular',
-        maxResults: 50
+export async function fetchYouTubeVideos() {
+  try {
+    const response = await youtube.search.list({
+      part: ['snippet'],
+      q: 'query', // Cambia 'query' por la palabra clave que desees buscar
+      maxResults: 10, // Número máximo de resultados
     });
 
-    const videos = response.data.items;
-    return videos;
+    if (response.data && response.data.items) {
+      return response.data.items;
+    } else {
+      console.error('Error fetching YouTube videos: Response data items not found');
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching YouTube videos:', error);
+    return [];
+  }
 }
