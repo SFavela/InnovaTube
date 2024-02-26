@@ -81,7 +81,7 @@ function RegisterPage() {
                                 <input className="login__input" type="password" placeholder="Confirmar Contraseña"  name="confirmarContrasena" />
                             </div>
                             <ReCAPTCHA
-                            sitekey="6LcbdYApAAAAAILi2en2BN6VpKlMr7nFIQII_CAr"
+                            sitekey="6LeIgIApAAAAAPyO-wLuXK-trJUFOVI0dyJxhm9T"
                             onChange={(value) =>{
                                 console.log('Captcha value:', value);
                             }}/>

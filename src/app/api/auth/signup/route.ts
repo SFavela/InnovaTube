@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     try {
         const response = await axios.post('https://www.google.com/recaptcha/api/siteverify', null, {
             params: {
-                secret: '6LcbdYApAAAAAOM4XpFaowBZiz2iBZ_j-pD0NVZn',
+                secret: '6LeIgIApAAAAAPgdNCZ2p6ofbSOD0qp2vnRqJXMp',
                 response: recaptchaToken
             }
         });
