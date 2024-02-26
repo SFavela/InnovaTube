@@ -2,11 +2,12 @@ import { NextResponse } from "next/server";
 import User from "@/models/user";
 import { connectDB } from "@/libs/mongodb";
 import bcrypt from 'bcryptjs';
+import axios from "axios";
 
 export async function POST(request: Request) {
 
-    const {usuario,nombreCompleto, correoElectronico, contrasena} = await request.json()
-    console.log(usuario,nombreCompleto, correoElectronico, contrasena);
+    const {usuario,nombreCompleto, correoElectronico, contrasena, recaptchaToken} = await request.json()
+    console.log(usuario,nombreCompleto, correoElectronico, contrasena, recaptchaToken);
 
     if (!contrasena || contrasena.length < 8 ) 
     return NextResponse.json({
@@ -15,6 +16,35 @@ export async function POST(request: Request) {
         status: 400
     }
     );
+
+
+    try {
+        const response = await axios.post('https://www.google.com/recaptcha/api/siteverify', null, {
+            params: {
+                secret: '6LcbdYApAAAAAOM4XpFaowBZiz2iBZ_j-pD0NVZn',
+                response: recaptchaToken
+            }
+        });
+
+        if (!response.data.success) {
+            return NextResponse.json({
+                message: "Error en la verificación de reCAPTCHA"
+            }, {
+                status: 400
+            });
+        }
+    } catch (error) {
+        console.error("Error al verificar reCAPTCHA:", error);
+        return NextResponse.error();
+    }
+
+    if (!contrasena || contrasena.length < 8) {
+        return NextResponse.json({
+            message: "La contraseña debe tener al menos 8 caracteres"
+        }, {
+            status: 400
+        });
+    }
 
     try {
         await connectDB();

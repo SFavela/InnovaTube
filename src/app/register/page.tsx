@@ -5,7 +5,9 @@ import { signIn } from "next-auth/react"
 import { FormEvent, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import ReCAPTCHA from 'react-google-recaptcha';
 import "./register.css"
+
 
 function RegisterPage() {
 
@@ -78,6 +80,11 @@ function RegisterPage() {
                             <div className="login__field">
                                 <input className="login__input" type="password" placeholder="Confirmar Contraseña"  name="confirmarContrasena" />
                             </div>
+                            <ReCAPTCHA
+                            sitekey="6LcbdYApAAAAAILi2en2BN6VpKlMr7nFIQII_CAr"
+                            onChange={(value) =>{
+                                console.log('Captcha value:', value);
+                            }}/>
                         </div>
                         <button className="login__submit">
                             <span className="button_text">Crear cuenta</span>
