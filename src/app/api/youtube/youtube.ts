@@ -2,25 +2,25 @@ import { google } from 'googleapis';
 
 const youtube = google.youtube({
   version: 'v3',
-  auth: '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', // Reemplaza con tu clave de API
+  auth: '67990251493-lt662ma8qid73hl7rck1odol85jinv6n.apps.googleusercontent.com',
 });
 
 export async function fetchYouTubeVideos() {
   try {
     const response = await youtube.search.list({
       part: ['snippet'],
-      q: 'query', // Cambia 'query' por la palabra clave que desees buscar
-      maxResults: 10, // Número máximo de resultados
+      q: 'mostPopular', 
+      maxResults: 10,
     });
 
     if (response.data && response.data.items) {
       return response.data.items;
     } else {
-      console.error('Error fetching YouTube videos: Response data items not found');
+      console.error('Error al obtener videos de YouTube: No se encontraron elementos en la respuesta');
       return [];
     }
   } catch (error) {
-    console.error('Error fetching YouTube videos:', error);
+    console.error('Error al obtener videos de YouTube:', error);
     return [];
   }
 }
