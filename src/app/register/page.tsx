@@ -10,9 +10,9 @@ import "./register.css"
 
 
 function RegisterPage() {
-
     const [error, setError] = useState("");
-    const router = useRouter()
+    const [recaptchaToken, setRecaptchaToken] = useState<string | null>(); // Estado para almacenar el token reCAPTCHA
+    const router = useRouter();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -32,6 +32,7 @@ function RegisterPage() {
                 nombreCompleto: formData.get("nombreCompleto"),
                 correoElectronico: formData.get("correoElectronico"),
                 contrasena: formData.get("contrasena"),
+                recaptchaToken: recaptchaToken, // Pasar el token reCAPTCHA
             });
             console.log(signupResponse);
 
@@ -46,13 +47,12 @@ function RegisterPage() {
             console.log(res);
 
         } catch (error) {
-            console.log(error)
+            console.log(error);
             if (error instanceof AxiosError) {
                 setError(error.response?.data.message);
             }
         }
-
-    }
+    };
 
     return (
         <div>
@@ -81,11 +81,10 @@ function RegisterPage() {
                                 <input className="login__input" type="password" placeholder="Confirmar Contraseña"  name="confirmarContrasena" />
                             </div>
                             <div className="login__field">
-                            <ReCAPTCHA
-                            sitekey= '6LeIgIApAAAAAPyO-wLuXK-trJUFOVI0dyJxhm9T'
-                            onChange={(value) =>{
-                                console.log('Captcha value:', value);
-                            }}/>
+                                <ReCAPTCHA
+                                    sitekey='6LeIgIApAAAAAPyO-wLuXK-trJUFOVI0dyJxhm9T'
+                                    onChange={(value) => setRecaptchaToken(value)} // Actualiza el estado con el token reCAPTCHA
+                                />
                             </div>
                         </div>
                         <button className="login__submit">
@@ -94,11 +93,11 @@ function RegisterPage() {
                         <div className="form-section">
                             <p>¿Ya tienes cuenta?<span className="login-link"><Link href={'../login'}>Inicar Sesión</Link></span></p>
                         </div>
-                        </form>
-                    </div>
+                    </form>
+                </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default RegisterPage
+export default RegisterPage;
