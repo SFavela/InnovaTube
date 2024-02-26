@@ -82,7 +82,7 @@ function RegisterPage() {
                             </div>
                             <div className="login__field">
                             <ReCAPTCHA
-                            sitekey="6LeIgIApAAAAAPyO-wLuXK-trJUFOVI0dyJxhm9T"
+                            sitekey={process.env.RECAPTCHA_SITE_KEY!}
                             onChange={(value) =>{
                                 console.log('Captcha value:', value);
                             }}/>
