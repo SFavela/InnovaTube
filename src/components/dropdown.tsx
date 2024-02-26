@@ -1,10 +1,7 @@
 "use client"
 
-import { signOut } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { Fragment, MouseEvent } from 'react'
+import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Searchbar from './searchbar'
 
 const navigation = [
@@ -16,18 +13,7 @@ function classNames(...classes: (string | undefined)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-function Dropdown() {
-  const router = useRouter();
-  const handleSignOut = async (event: MouseEvent) => {
-    event.preventDefault(); // Prevenir la acción predeterminada del enlace
-    const res = await fetch('/api/auth/logout', { method: 'POST' });
-    if (res.ok) {
-      await signOut();
-      router.push('/'); // Redirigir a la página de inicio u otra página
-    } else {
-      console.error('Error al cerrar sesión');
-    }
-  };
+export default function Dropdown() {
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -95,7 +81,6 @@ function Dropdown() {
                         {({ active }) => (
                           <a
                             href="/"
-                            onClick={handleSignOut}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Cerrar Sesión
@@ -132,5 +117,3 @@ function Dropdown() {
     </Disclosure>
   )
 }
-
-export default Dropdown

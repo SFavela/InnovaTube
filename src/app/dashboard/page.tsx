@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar"
+
 import "./dashboard.css"
 import Dropdown from "@/components/dropdown"
 
