@@ -25,6 +25,7 @@ interface Video {
 export default function HomePage() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [favorites, setFavorites] = useState<Video[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchVideos() {

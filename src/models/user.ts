@@ -23,6 +23,10 @@ const userSchema = new Schema({
         select:false, //No se muestra en consultas a BD
         minLength: 8,
     },
+    favoritos: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Video'
+    }]
 });
 
 const User = models.User || model("User", userSchema);
