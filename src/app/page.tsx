@@ -1,6 +1,11 @@
+import Dropdown from '@/components/dropdown'
+import "./globals.css"
+
 function HomePage() {
   return (
-    <div>HomePage</div>
+    <div>
+      <Dropdown/>
+    </div>
   )
 }
 

@@ -1,10 +1,11 @@
 import Navbar from "@/components/navbar"
 import "./dashboard.css"
+import Dropdown from "@/components/dropdown"
 
 function DashboardPage() {
   return (
     <div>
-      <Navbar></Navbar>
+      <Dropdown/>
     </div>
   )
 }
