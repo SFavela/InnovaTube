@@ -15,7 +15,10 @@ function classNames(...classes: (string | undefined)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-const router = useRouter();
+
+export default function Dropdown() {
+
+  const router = useRouter();
 const handleLogout = async () =>{
   try {
     await signOut({redirect:false})
@@ -25,7 +28,6 @@ const handleLogout = async () =>{
   }
 }
 
-export default function Dropdown() {
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
