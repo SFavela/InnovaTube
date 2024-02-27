@@ -3,6 +3,8 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import Searchbar from './searchbar'
+import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 const navigation = [
   { name: 'Inicio', href: '/', current: true },
@@ -11,6 +13,16 @@ const navigation = [
 
 function classNames(...classes: (string | undefined)[]): string {
   return classes.filter(Boolean).join(' ');
+}
+
+const router = useRouter();
+const handleLogout = async () =>{
+  try {
+    await signOut({redirect:false})
+    router.push('/')
+  } catch (error) {
+    console.error('Error al cerrar sesion', error);
+  }
 }
 
 export default function Dropdown() {
@@ -80,7 +92,7 @@ export default function Dropdown() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="/"
+                            onClick={handleLogout}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Cerrar Sesión
