@@ -22,7 +22,7 @@ export default function Dropdown() {
 const handleLogout = async () =>{
   try {
     await signOut({redirect:false})
-    router.push('/')
+    router.push('/login')
   } catch (error) {
     console.error('Error al cerrar sesion', error);
   }
